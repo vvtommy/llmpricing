@@ -19,10 +19,10 @@ jobs:
       - name: Update
         run: |
           mkdir -p ~/.ssh ./data
-          # echo "${{ secrets.PRIVATE_REPO_SSH_KEY }}" > ~/.ssh/id_ed25519
-          # chmod 600 ~/.ssh/id_ed25519
-          # ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts
-          git clone --depth 1 https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/vvtommy/llmpricing.app.git tmp/
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts
+          git clone --depth 1 git@github.com:vvtommy/llmpricing.app.git tmp/
           cd tmp/packages/crawler
           pnpm install --frozen-lockfile
           npx playwright install chromium --with-deps
