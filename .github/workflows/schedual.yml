@@ -28,7 +28,7 @@ jobs:
           git clone --depth 1 git@github.com:vvtommy/llmpricing.app.git tmp/
           cd tmp/packages/crawler
           pnpm install --frozen-lockfile
-          npx playwright install chromium --with-deps
+          npx playwright install chrome --with-deps
           pnpm tsc
           pnpm run start
           mv ./data/*.json ../data
