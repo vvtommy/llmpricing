@@ -31,7 +31,6 @@ jobs:
           npx playwright install chrome --with-deps
           pnpm tsc
           pnpm run start
-          mv ./data/*.json ../data
 
       - uses: actions/upload-artifact@v4
         with:
