@@ -1,0 +1,32 @@
+name: Update
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Update
+        run: |
+          mkdir -p ~/.ssh ./data
+          echo "${{ secrets.PRIVATE_REPO_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts
+          git clone --depth 1 git@github.com:vvtommy/llmpricing.app.git tmp/
+          cd tmp/packages/crawler
+          pnpm install --frozen-lockfile
+          npx playwright install chromium --with-deps
+          pnpm build
+          pnpm run start
+          mv ./data/*.json ../data
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
