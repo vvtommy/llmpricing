@@ -47,11 +47,6 @@ jobs:
           npx playwright install chrome --with-deps
           pnpm tsc
           pnpm run start
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: screenshots
-          path: tmp/packages/crawler/screenshots/*
-          retention-days: 1
+          find .
 
       - uses: stefanzweifel/git-auto-commit-action@v5
