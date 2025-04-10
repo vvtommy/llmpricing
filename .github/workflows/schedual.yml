@@ -47,6 +47,7 @@ jobs:
           npx playwright install chrome --with-deps
           pnpm tsc
           pnpm run start
+          find .
           mv ./data ../../../
           find ../../../
 
