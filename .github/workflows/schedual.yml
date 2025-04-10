@@ -26,7 +26,10 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -t ed25519 github.com >> ~/.ssh/known_hosts
           git clone --depth 1 git@github.com:vvtommy/llmpricing.app.git tmp/
-          cd tmp/packages/crawler
+          cd tmp/packages/types
+          pnpm install --frozen-lockfile
+          pnpm tsc
+          cd ../crawler
           pnpm install --frozen-lockfile
           npx playwright install chrome --with-deps
           pnpm tsc
