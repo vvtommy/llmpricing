@@ -47,9 +47,7 @@ jobs:
           npx playwright install chrome --with-deps
           pnpm tsc
           pnpm run start
-          find .
-          mv ./data ../../../
-          find ../../../
+          mv ./src/data ../../../
 
       - uses: stefanzweifel/git-auto-commit-action@v5
         with:
